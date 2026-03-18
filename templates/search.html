@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - SocialMedia</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1 onclick="window.location.href='/feed'">SocialMedia</h1>
+        <div class="nav-links">
+            <a href="/feed">🏠 Feed</a>
+            <a href="/notifications">🔔 Notifications</a>
+            <a href="/profile">👤 Profile</a>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </nav>
+    <div class="feed-container">
+        <div class="search-box">
+            <h2>🔍 Search</h2>
+            <div class="search-input-container">
+                <input type="text" id="search-input" placeholder="Search users or posts..." oninput="handleSearch()"/>
+            </div>
+            <div class="search-tabs">
+                <button class="search-tab active" onclick="switchTab('users', this)">👥 Users</button>
+                <button class="search-tab" onclick="switchTab('posts', this)">📝 Posts</button>
+            </div>
+        </div>
+        <div id="search-results"></div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
