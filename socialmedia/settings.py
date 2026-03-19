@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
 
 
 import os
-import dj_database_url
+
 
 # Static files for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -146,8 +146,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 # Database for production
-if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+import dj_database_url
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
 
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
