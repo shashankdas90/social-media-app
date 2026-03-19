@@ -81,6 +81,8 @@ WSGI_APPLICATION = 'socialmedia.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 # Database - PostgreSQL on Vercel, SQLite locally
+import os
+import dj_database_url
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES = {
@@ -144,8 +146,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-import os
-import dj_database_url
+
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
@@ -160,10 +161,3 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
 
-# Database - Force PostgreSQL
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_SsGTVBk2AZ0m@ep-super-wind-andyj7qw-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require'),
-        conn_max_age=600
-    )
-}
