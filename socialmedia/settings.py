@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'users',
     'posts',
     'notifications',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -149,3 +151,5 @@ if os.environ.get('DATABASE_URL'):
 
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
+
+CORS_ALLOW_ALL_ORIGINS = True
