@@ -1,4 +1,4 @@
-js = """const API = 'http://127.0.0.1:8000/api';
+js = """const API = window.location.origin + '/api';
 
 function getToken() {
     return localStorage.getItem('token');
