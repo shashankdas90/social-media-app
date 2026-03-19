@@ -134,24 +134,31 @@ REST_FRAMEWORK = {
     ],
 }
 
-
 import os
+import dj_database_url
 
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStack'
 
 # Whitenoise
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
-# Database for production
-import dj_database_url
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
-
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Force PostgreSQL on production
+DATABASE_URL = os.environ.get('DATABASE_URL', '')
+print(f"DATABASE_URL found: {bool(DATABASE_URL)}")
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
