@@ -150,15 +150,10 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
 
-# Force PostgreSQL on production
-DATABASE_URL = os.environ.get('DATABASE_URL', '')
-print(f"DATABASE_URL found: {bool(DATABASE_URL)}")
-
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
-    }
+# Database - Force PostgreSQL
+DATABASES = {
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_SsGTVBk2AZ0m@ep-super-wind-andyj7qw-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require'),
+        conn_max_age=600
+    )
+}
