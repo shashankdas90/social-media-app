@@ -1,4 +1,4 @@
-const API = 'http://127.0.0.1:8000/api';
+const API = 'https://social-media-app-i0gi.onrender.com/api';
 
 function getToken() {
     return localStorage.getItem('token');
